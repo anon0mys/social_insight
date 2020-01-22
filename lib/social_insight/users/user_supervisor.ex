@@ -8,8 +8,8 @@ defmodule SocialInsight.Users.UserSupervisor do
 
   def get_or_create_user(user) do
     case DynamicSupervisor.start_child(__MODULE__, {UserCache, user}) do
-      {:ok, pid} -> pid
-      {:error, {:already_started, pid}} -> pid
+      {:ok, _pid} -> user
+      {:error, {:already_started, _pid}} -> UserCache.get(user.email)
     end
   end
 

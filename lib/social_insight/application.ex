@@ -11,7 +11,8 @@ defmodule SocialInsight.Application do
       # Start the Ecto repository
       SocialInsight.Repo,
       # Start the endpoint when the application starts
-      SocialInsightWeb.Endpoint
+      SocialInsightWeb.Endpoint,
+      SocialInsight.Users.UserSupervisor
       # Starts a worker by calling: SocialInsight.Worker.start_link(arg)
       # {SocialInsight.Worker, arg},
     ]

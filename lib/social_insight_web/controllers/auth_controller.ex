@@ -9,6 +9,7 @@ defmodule SocialInsightWeb.AuthController do
   import SocialInsightWeb.Router.Helpers
   alias Ueberauth.Strategy.Helpers
   alias SocialInsight.Facebook.FBUser
+  alias SocialInsight.Users.UserSupervisor
 
   def request(conn, _params) do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
