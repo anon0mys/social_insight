@@ -1,12 +1,12 @@
 defmodule SocialInsight.Users.UserCache do
   use GenServer
 
-  def start_link() do
-    GenServer.start_link(__MODULE__, %{})
+  def start_link(%{email: email} = user) when is_binary(email) do
+    GenServer.start_link(__MODULE__, user, [name: :"#{email}"])
   end
 
   @impl true
-  def init(arg) do
-    {:ok, arg}
+  def init(user) do
+    {:ok, user}
   end
 end

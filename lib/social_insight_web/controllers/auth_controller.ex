@@ -6,6 +6,7 @@ defmodule SocialInsightWeb.AuthController do
   use SocialInsightWeb, :controller
   plug Ueberauth
 
+  import SocialInsightWeb.Router.Helpers
   alias Ueberauth.Strategy.Helpers
   alias SocialInsight.Facebook.FBUser
 
@@ -14,7 +15,12 @@ defmodule SocialInsightWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    user = FBUser.transform(auth)
-    require IEx; IEx.pry()
+    user = auth
+    |> FBUser.transform()
+    |> UserSupervisor.get_or_create_user()
+
+    conn
+    |> put_flash(:info, "Logged in!")
+    |> redirect(to: user_path(conn, :show, user.email))
   end
 end

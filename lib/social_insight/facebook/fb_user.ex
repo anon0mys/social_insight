@@ -26,8 +26,8 @@ defmodule SocialInsight.Facebook.FBUser do
     description: String.t(),
     email: String.t(),
     first_name: String.t(),
-    last_name: String.t(),
     image: String.t(),
+    last_name: String.t(),
     location: String.t(),
     name: String.t(),
     nickname: String.t(),
@@ -38,13 +38,13 @@ defmodule SocialInsight.Facebook.FBUser do
     expires_at: integer()
   }
 
-  def transform(%Auth{credentials: credentials, info: info, uid: uid} = response) do
+  def transform(%Auth{credentials: credentials, info: info, uid: uid}) do
     %FBUser{uid: uid}
     |> update_credentials(credentials)
     |> update_info(info)
   end
 
-  def update_credentials(user, %Auth.Credentials{} = credentials) do
+  defp update_credentials(user, %Auth.Credentials{} = credentials) do
     %FBUser{user |
       token: credentials.token,
       refresh_token: credentials.refresh_token,
@@ -52,7 +52,7 @@ defmodule SocialInsight.Facebook.FBUser do
     }
   end
 
-  def update_info(user, %Auth.Info{} = info) do
+  defp update_info(user, %Auth.Info{} = info) do
     %FBUser{user |
       description: info.description,
       email: info.email,

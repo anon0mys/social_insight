@@ -26,6 +26,7 @@ defmodule SocialInsightWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/users/:email", UserController, :show
   end
 
   # Other scopes may use custom stacks.
